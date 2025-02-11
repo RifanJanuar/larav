@@ -16,8 +16,11 @@ Route::get('/admin/inputbuku', function () {
 //     return view('admin.kategori');
 // });
 
-Route::get('/admin/kategori', [CategoryController::class,'index']);
-// // ->name ('admin.kategori');
+Route::get('/admin/kategori', [CategoryController::class,'index'])
+-> name ('admin.kategori');
+
+Route::post('/admin/kategori', [CategoryController::class,'store'])
+->name('admin.storekategori');
 
 Route::get('/admin/penulis', function () {
     return view('admin.penulis');

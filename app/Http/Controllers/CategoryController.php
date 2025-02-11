@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreKategoriRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,6 @@ class CategoryController extends Controller
     {
         //
         $kategori = Category::all();
-
         return view('admin.kategori', ['kat' => $kategori]);
     }
 
@@ -29,9 +29,23 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreKategoriRequest $request)
     {
-        //
+
+        try {
+
+        $param = $request->validated();
+        Category::create($param);
+        return redirect()
+        ->route('admin.storekategori')
+        ->with('succes','data berhasil');
+        }
+        catch(\exception $e)
+        {
+            return redirect()
+            ->route('admin.storekategori')
+            ->with('error', $e->getMessage());
+        }
     }
 
     /**
